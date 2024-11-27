@@ -17,17 +17,23 @@ quit = False    # Si à True, alors on quitte le jeux et on ferme le programme
 
 # --- Fonction : ---
 def transformInputCoordinate(coordinateInput) -> list:  # Fonction pour reçevoir les coordonnées sous forme "ligneDepart-colonneDepart,ligneArrivee-ColonneArrivee" et
-                                                        # le retourner en une liste simple de 4 colones
-    coordinateInput.split(sep=",")
-    coordinateInput[0].split(sep="-")
-    coordinateInput[1].split(sep="-")
-    return [coordinateInput[0][0], coordinateInput[0][1], coordinateInput[1][0], coordinateInput[1][1]]
+                                                        # le retourner en une liste qui contient deux listes qui chacune de ces list son des coordonnées "ligne, colonne"
+    coordinateInput = coordinateInput.split(sep=",")
+    coordinateInput[0] = coordinateInput[0].split(sep="-")
+    coordinateInput[1] = coordinateInput[1].split(sep="-")
+    for i in coordinateInput :
+        for j in i :
+            coordinateInput[i][j] = int(coordinateInput[i][j])
+    return [coordinateInput[0], coordinateInput[1]]
+
+    # VALIDATION DES COORDONNÉES : !!!!!!!!!!!!!!
 
 def displayGrid(self) -> None:     # Fonction pour afficher la grille actuelle du joueur 
     print()
     for row in self.grille :
-        print(f"    {row}")
-    print()
+        for column in row : 
+            print(f"[ {column} ]", end = "")
+        print()
 
 
 # --- Création de la classe Joueur : ---
@@ -38,18 +44,24 @@ class Joueur :
 
     def __post_init__(self) -> None:   # Cette fonciton initialise les dimensions du pateau et les coordonnées des bateaux lors de la création d'un object Joueur
         coordinateInput = ""    # Coordonné entre par le joueur sous forme "ligneDepart-colonneDepart,ligneArrivee-ColonneArrivee"
-        coordinateTranform = [] # Coordonné entre par le joueur qui a été transformer en des coordonné manipulable
+        coordinateTransform = []     # Les coordonnées entre par le joueur pour un bateau qui a été transformer par la fonction "transformInputCoordinate()"
+                                     # en des coordonnées manipulable
 
         self.grille = [TABLECOLUMN * [0] for i in range(TABLEROW)]  
         
         print("Voici votre grille de jeux : ") 
         displayGrid(self) 
-        for i in len(NBRBOATS) : 
+        for i in range(NBRBOATS) : 
             print(f"{self.name}, entre la position de ton bateau #{i + 1} : (ligneDepart-colonneDepart,ligneArrivee-ColonneArrivee)")
             coordinateInput = input(" > ")
-            coordinateTranform = transformInputCoordinate(coordinateInput)
-
+            coordinateTransform = transformInputCoordinate(coordinateInput)
             
+            for coordinate in coordinateTransform :
+                self.grille[coordinate[0]][coordinate[1]] = "-"
+
+        #
+        print(self.grille)
+        #
 
 
 # --- Création de la classe coordonnee : --- 
