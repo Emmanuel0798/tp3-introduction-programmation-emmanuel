@@ -21,8 +21,9 @@ def transformInputCoordinate(coordinateInput) -> list:  # Fonction pour reçevoi
     coordinateInput = coordinateInput.split(sep=",")
     coordinateInput[0] = coordinateInput[0].split(sep="-")
     coordinateInput[1] = coordinateInput[1].split(sep="-")
-    for i in coordinateInput :
-        for j in i :
+
+    for i, contenueI in enumerate(coordinateInput) :    # Les boucles "for" imbriquées servent simplement en tranformer les chiffres, qui sont en str, en int
+        for j, contenuJ in enumerate(contenueI) :
             coordinateInput[i][j] = int(coordinateInput[i][j])
     return [coordinateInput[0], coordinateInput[1]]
 
@@ -58,10 +59,9 @@ class Joueur :
             
             for coordinate in coordinateTransform :
                 self.grille[coordinate[0]][coordinate[1]] = "-"
-
-        #
-        print(self.grille)
-        #
+            #
+            #
+            # NOTE : Maintenant, tu as réusis à créer la grille et à enregistrer les bateaux dedans, mais il faut créer une deuxième taleau qui seras une tableau t'attaque et faire la validation des coordonnées rentré par le joueur avec les consignes dans le doc word
 
 
 # --- Création de la classe coordonnee : --- 
