@@ -2,11 +2,15 @@ import os
 import dataclasses
 os.system("cls")
 
-def transformInputCoordinate(coordinateInput) -> list:  # Fonction pour reçevoir les coordonnées sous forme "ligneDepart-colonneDepart,ligneArrivee-ColonneArrivee" et
-                                                        # le retourner en une liste qui contient deux listes qui chacune de ces list son des coordonnées "ligne, colonne"
-    coordinateInput = coordinateInput.split(sep=",")
-    coordinateInput[0] = coordinateInput[0].split(sep="-")
-    coordinateInput[1] = coordinateInput[1].split(sep="-")
-    return [coordinateInput[0], coordinateInput[1]]
+error = True    # Temporaire
 
-print(transformInputCoordinate("1-2,3-4"))
+while error == True :
+    print(f"Nouvelle itération de la boucle \"while\", error : {error}")
+    error = False 
+    choix = input(" > ")
+    if choix == "error" : 
+        print("Erreur détecté")
+        error = True
+        continue
+
+print("Fin de la boucle while")
